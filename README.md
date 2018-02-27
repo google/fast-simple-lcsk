@@ -1,6 +1,6 @@
 DISCLAIMER: This is not an officially supported Google product.
 
-# Fast and simple algorithms for computing both LCSk and LCSk+
+# Fast and simple algorithms for computing LCSk and LCSk+
 
 This repository contains an implementation of the algorithms for computing LCSk and LCSk+, described in [1].
 
