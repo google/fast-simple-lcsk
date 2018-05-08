@@ -61,12 +61,11 @@ bool CompareByCol(const std::shared_ptr<MatchPair>& a,
   return a->end_col < b->end_col;
 }
 
-
 void RowUpdate(
     const int k, const int row, MatchEventsQueue* events_ptr,
     vector<std::shared_ptr<MatchPair>>* compressed_table_ptr,
     vector<std::shared_ptr<MatchPair>>* prev_row_match_pairs,
-    bool lcskpp) {
+    bool lcsk_plus) {
   auto& events = *events_ptr;
   auto& compressed_table = *compressed_table_ptr;
   auto& prev_row = *prev_row_match_pairs;
@@ -82,7 +81,7 @@ void RowUpdate(
     assert(i == row);
     auto match_pair_end = get<2>(event);
 
-    if (lcskpp) { // LCSk++
+    if (lcsk_plus) { // LCSk++
       while (curr_continuation_index < prev_row.size() &&
              prev_row[curr_continuation_index]->end_col + 1 < match_pair_end->end_col) {
         curr_continuation_index++;
@@ -150,8 +149,6 @@ void AmortizedRowQuery(
   }
 }
 
-
-
 void ElementwiseRowQuery(
     const int k, const int row, MatchEventsQueue* events_ptr,
     vector<std::shared_ptr<MatchPair>>* compressed_table_ptr) {
@@ -180,11 +177,9 @@ void ElementwiseRowQuery(
   }
 }
 
-}  // namespace
-
-void LcsKSparseFast(const string& a, const string& b, int k,
-                    vector<pair<int, int>>* lcsk_reconstruction,
-                    const bool lcskpp) {
+void LcsKSparseFastImpl(const string& a, const string& b, int k,
+                        vector<pair<int, int>>* lcsk_reconstruction,
+                        const bool lcsk_plus) {
   lcsk_reconstruction->clear();
 
   MatchEventsQueue events;
@@ -215,22 +210,24 @@ void LcsKSparseFast(const string& a, const string& b, int k,
       ElementwiseRowQuery(k, row, &events, &compressed_table);
     }
 
-    RowUpdate(k, row, &events, &compressed_table, &prev_row_match_pairs, lcskpp);
+    RowUpdate(k, row, &events, &compressed_table, &prev_row_match_pairs, lcsk_plus);
   }
 
   auto best = compressed_table.back()->end_row != -1 ? compressed_table.back() : nullptr;
   FillLcskReconstruction(k, best, lcsk_reconstruction);
 }
 
+}  // namespace
+
 
 // exposed functions
 
-void LcsKSparseFast(const std::string &a, const std::string &b, int k,
-                    std::vector<std::pair<int, int>> *lcsk_reconstruction) {
-  LcsKSparseFast(a, b, k, lcsk_reconstruction, false);
+void LcsKSparseFast(const std::string& a, const std::string& b, int k,
+                    std::vector<std::pair<int, int>>* lcsk_reconstruction) {
+  LcsKSparseFastImpl(a, b, k, lcsk_reconstruction, /*lcsk_plus=*/false);
 }
 
-void LcsKppSparseFast(const std::string &a, const std::string &b, int k,
-                      std::vector<std::pair<int, int>> *lcsk_reconstruction) {
-  LcsKSparseFast(a, b, k, lcsk_reconstruction, true);
+void LcsKppSparseFast(const std::string& a, const std::string& b, int k,
+                        std::vector<std::pair<int, int>>* lcsk_reconstruction) {
+  LcsKSparseFastImpl(a, b, k, lcsk_reconstruction, /*lcsk_plus=*/true);
 }
