@@ -12,13 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cassert>
+
+#include <fstream>
 #include <iostream>
 #include <map>
-#include <fstream>
-#include <cassert>
+#include <unordered_map>
 
 #include "../fast_simple_lcsk/lcsk.h"
 #include "../fast_simple_lcsk/match_pair.h"
+#include "../fast_simple_lcsk/rolling_hasher.h"
 
 using namespace std;
 
@@ -28,6 +31,25 @@ using namespace std;
 #define TRACE(x) cout << #x << " = " << x << endl
 #define _ << " _ " <<
 
+long long CountMatchPairs(const string& s, const int k) {
+  vector<char> char_to_id(256);
+  char_to_id['A'] = 0;
+  char_to_id['C'] = 1;
+  char_to_id['T'] = 2;
+  char_to_id['G'] = 3;
+  RollingHasher rolling_hasher(s, k, char_to_id,
+                               /*alphabet_size=*/4);
+  unordered_map<unsigned long long, long long> kmer_counts;
+  for (unsigned long long hash = -1;
+       rolling_hasher.Next(&hash);) {
+    ++kmer_counts[hash];
+  }
+  long long num_match_pairs = 0;
+  for (const auto& kmer_count : kmer_counts) {
+    num_match_pairs += kmer_count.second * kmer_count.second;
+  }
+  return num_match_pairs;
+}
 
 int main(int argc, char** argv) {
   if (argc != 3) {
@@ -69,16 +91,19 @@ int main(int argc, char** argv) {
     }
   }
 
-  int n = input.size();
-  
+  {
+    const long long num_match_pairs = CountMatchPairs(input, k);
+    cout << "num_match_pairs=" << num_match_pairs << endl;
+  }
+
+  const int n = input.size();
+  cout << "input.size()=" << n << endl;
   vector<pair<int, int>> recon;
   LcsKSparseFast(input, input, k, &recon);
-  int length = recon.size();
-  
+  const int length = recon.size();
   cout << n << " "
        << length << " "
        << ObjectCounter<MatchPair>::objects_created << " "
        << ObjectCounter<MatchPair>::max_objects_alive << endl;
-
   return 0;
 }

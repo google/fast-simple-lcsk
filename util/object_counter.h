@@ -17,24 +17,23 @@
 
 template <typename T>
 struct ObjectCounter {
-    ObjectCounter() {
-        objects_created++;
-        objects_alive++;
-        max_objects_alive = std::max(max_objects_alive, objects_alive);
-    }
+  ObjectCounter() {
+    objects_created++;
+    objects_alive++;
+    max_objects_alive = std::max(max_objects_alive, objects_alive);
+  }
 
-    virtual ~ObjectCounter() {
-        --objects_alive;
-    }
+  virtual ~ObjectCounter() {
+    --objects_alive;
+  }
 
-    static uint64_t objects_created;
-    static uint64_t objects_alive;
-    static uint64_t max_objects_alive;
+  static uint64_t objects_created;
+  static uint64_t objects_alive;
+  static uint64_t max_objects_alive;
 };
 
 template <typename T> uint64_t ObjectCounter<T>::objects_created(0);
 template <typename T> uint64_t ObjectCounter<T>::objects_alive(0);
 template <typename T> uint64_t ObjectCounter<T>::max_objects_alive(0);
-
 
 #endif
