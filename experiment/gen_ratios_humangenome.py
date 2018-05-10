@@ -21,6 +21,8 @@ filenames = [
     'Homo_sapiens.GRCh38.dna.chromosome.3.fa',
 ]
 
+# The compression ratio can be computed from this file by running:
+#   grep Homo ratios_hg.csv | cut -d"," -f 4,5 --output-delimiter="/" | bc -l
 log_file = 'ratios_hg.csv'
 
 def get_done():
@@ -57,12 +59,12 @@ for k in reversed(range(2, 31)):
             print ('Done before')
         else:
             x = subprocess.check_output("./stats_fasta {} {}".format(k, filename), shell=True)
-            n, lcskpp, mp_created, mp_max_alive = x.strip().split(' ')
+            n, lcsk, num_match_pairs, mp_max_alive = x.strip().split(' ')
             dump_result({
                 'N': n,
                 'K': k,
-                'LCSK': lcskpp,
-                'MP_CREATED': mp_created,
+                'LCSK': lcsk,
+                'NUM_MATCH_PAIRS': num_match_pairs,
                 'MP_MAX_ALIVE': mp_max_alive,
                 'FILENAME': filename
             })
