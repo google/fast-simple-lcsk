@@ -91,19 +91,21 @@ int main(int argc, char** argv) {
     }
   }
 
-  {
-    const long long num_match_pairs = CountMatchPairs(input, k);
-    cout << "num_match_pairs=" << num_match_pairs << endl;
-  }
-
   const int n = input.size();
-  cout << "input.size()=" << n << endl;
+  cerr << "input.size()=" << n << endl;
+
+  const long long num_match_pairs = CountMatchPairs(input, k);
   vector<pair<int, int>> recon;
   LcsKSparseFast(input, input, k, &recon);
+
+  // '+1' comes from a single dummy MatchPair object in the first row of the
+  // compressed table.
+  assert(num_match_pairs + 1 == ObjectCounter<MatchPair>::objects_created);
+
   const int length = recon.size();
   cout << n << " "
        << length << " "
-       << ObjectCounter<MatchPair>::objects_created << " "
+       << num_match_pairs << " "
        << ObjectCounter<MatchPair>::max_objects_alive << endl;
   return 0;
 }
