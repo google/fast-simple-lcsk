@@ -167,7 +167,17 @@ void ElementwiseRowQuery(
       lower_bound(compressed_table.begin(), compressed_table.end(),
                   dummy_match_pair, CompareByCol) -
       1;
-    auto match_pair = std::make_shared<MatchPair>(i + k - 1, j + k - 1, k, nullptr);
+    // We reuse dummy_match_pair in order to keep the object counters precise
+    // (otherwise the objects_created counter would roughly double due to
+    // instantiation of the dummy object).
+    //
+    // The following several lines can be read as:
+    // auto match_pair =
+    //    std::make_shared<MatchPair>(i + k - 1, j + k - 1, k, nullptr);
+    auto match_pair = dummy_match_pair;
+    match_pair->end_row = i + k - 1;
+    match_pair->end_col = j + k - 1;
+    match_pair->dp = k;
 
     if ((*prev_best)->dp > 0) {
       match_pair->dp = (*prev_best)->dp + k;
