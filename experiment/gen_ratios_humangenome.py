@@ -19,8 +19,6 @@ filenames = [
     'Homo_sapiens.GRCh38.dna.chromosome.1.fa',
     'Homo_sapiens.GRCh38.dna.chromosome.2.fa',
     'Homo_sapiens.GRCh38.dna.chromosome.3.fa',
-    'Homo_sapiens.GRCh38.dna.chromosome.4.fa',
-    'Homo_sapiens.GRCh38.dna.chromosome.5.fa'
 ]
 
 log_file = 'ratios_hg.csv'
@@ -50,8 +48,6 @@ def dump_result(new_row):
         for row in rows:
             writer.writerow(row)
 
-            
-
 done = get_done()
 
 for k in reversed(range(2, 31)):
@@ -65,7 +61,7 @@ for k in reversed(range(2, 31)):
             dump_result({
                 'N': n,
                 'K': k,
-                'LCSKPP': lcskpp,
+                'LCSK': lcskpp,
                 'MP_CREATED': mp_created,
                 'MP_MAX_ALIVE': mp_max_alive,
                 'FILENAME': filename
