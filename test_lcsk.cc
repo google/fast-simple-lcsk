@@ -46,7 +46,7 @@ const int kK = 3;
 // const double kPerr = -1.0;
 const double kPerr = 0.1;
 
-int test_lcsk(const string &a, const string &b, const int K) {  
+int test_lcsk(const string &a, const string &b, const int K) {
   vector<pair<int, int> > lcsk_sparse_slow_recon;
   vector<pair<int, int> > lcskpp_sparse_slow_recon;
   if (!only_run_fast_version) {
@@ -68,7 +68,7 @@ int test_lcsk(const string &a, const string &b, const int K) {
 
   if (!only_run_fast_version) {
     assert(lcsk_sparse_slow_recon.size() == lcsk_sparse_fast_recon.size());
-    assert(ValidLcsk(a, b, K + 1, lcsk_sparse_slow_recon));
+    assert(ValidLcsk(a, b, K, lcsk_sparse_slow_recon));
 
     assert(lcskpp_sparse_slow_recon.size() == lcskpp_sparse_fast_recon.size());
     assert(ValidLcskpp(a, b, K, lcskpp_sparse_slow_recon));
