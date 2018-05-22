@@ -1,6 +1,7 @@
 DISCLAIMER: This is not an officially supported Google product.
 
 ## Fast and simple algorithms for computing both LCSk and LCSk+
+[![Build Status](https://travis-ci.com/google/fast-simple-lcsk.svg?branch=master)](https://travis-ci.com/google/fast-simple-lcsk)
 
 This repository contains an implementation of the algorithms for computing LCSk and LCSk+, described in [1].
 
