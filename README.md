@@ -6,7 +6,7 @@ DISCLAIMER: This is not an officially supported Google product.
 This repository contains an implementation of the algorithms for computing LCSk and LCSk+, described in [1].
 
 ## Implementation
-* __fast_simple_lcsk/lcsk.h__  
+* [__fast_simple_lcsk/lcsk.h__](https://github.com/google/fast-simple-lcsk/blob/master/fast_simple_lcsk/lcsk.h)
   >> This header contains the core of the library.
 * [__experiment__](https://github.com/google/fast-simple-lcsk/blob/master/experiment/)
   >> The code required to reconstruct the experiments from the paper.
