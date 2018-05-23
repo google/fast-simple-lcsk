@@ -8,7 +8,7 @@ This repository contains an implementation of the algorithms for computing LCSk 
 ## Implementation
 * __fast_simple_lcsk/lcsk.h__  
   >> This header contains the core of the library.
-* [__experiment__](https://github.com/google/fast-simple-lcsk/blob/master/experiment/README.md)
+* [__experiment__](https://github.com/google/fast-simple-lcsk/blob/master/experiment/)
   >> The code required to reconstruct the experiments from the paper.
 
 ## Dependencies
