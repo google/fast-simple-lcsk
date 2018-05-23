@@ -9,7 +9,7 @@ This repository contains an implementation of the algorithms for computing LCSk 
 * [__fast_simple_lcsk/lcsk.h__](https://github.com/google/fast-simple-lcsk/blob/master/fast_simple_lcsk/lcsk.h)
   >> This header contains the core of the library.
 * [__experiment__](https://github.com/google/fast-simple-lcsk/blob/master/experiment/)
-  >> The code required to reconstruct the experiments from the paper.
+  >> The code to reconstruct the experiments from the paper.
 
 ## Dependencies
 For compiling the library, it is necessary to have C++11 compatible compiler.
