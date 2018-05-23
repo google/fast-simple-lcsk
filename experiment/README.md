@@ -2,7 +2,7 @@ These are the instructions on how to reconstruct the results from Figure 3 in th
 
 ## Get the input data
 
-The input data can be obtained from [here](ftp://ftp.ensembl.org/pub/release-88/fasta/homo_sapiens/dna/).
+The input data can be obtained from [here] (ftp://ftp.ensembl.org/pub/release-88/fasta/homo_sapiens/dna/).
    
 ## Sample commands to run the experiment
   >> Ensure that you are in the 'experiment' directory.
