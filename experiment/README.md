@@ -8,5 +8,5 @@ The input data can be obtained from ftp://ftp.ensembl.org/pub/release-88/fasta/h
 
 1. Ensure that you are in the 'experiment' directory.
 2. Run: make
-3. Run: ./stats_fasta 30 Homo_sapiens.GRCh38.dna.chromosome.1.fa
+3. Run (assuming k=30): ./stats_fasta 30 Homo_sapiens.GRCh38.dna.chromosome.1.fa
 
